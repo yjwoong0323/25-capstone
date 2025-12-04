@@ -1,0 +1,99 @@
+.post-apply-container {
+    max-width: 800px;
+    margin: 140px auto 100px;
+    padding: 0 20px;
+  }
+  
+  .apply-title {
+    text-align: center;
+    font-size: 26px;
+    font-weight: 700;
+    color: #0f1d40;
+    margin-bottom: 30px;
+  }
+  
+  .apply-box {
+    background: #f3f3f3;
+    padding: 40px 50px;
+    border-radius: 14px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+  }
+  
+  /* 포스터 업로드 */
+  .apply-poster-upload {
+    width: 100%;
+    height: 260px;
+    background: #e5e7eb;
+    border-radius: 12px;
+    border: 1px dashed #0f1d40;
+    color: #0f1d40;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-bottom: 28px;
+  }
+  
+  .apply-poster-upload:hover {
+    background: #dfe3ea;
+  }
+  
+  .apply-poster-upload input {
+    display: none;
+  }
+  
+  .poster-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+  
+  /* 입력 그룹 */
+  .apply-input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  .apply-input-group label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #0f1d40;
+  }
+  
+  .apply-input {
+    height: 38px;
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: white;
+  }
+  
+  .apply-textarea {
+    min-height: 120px;
+    padding: 10px;
+    border-radius: 6px;
+    background: white;
+    border: 1px solid #ccc;
+    resize: none;
+  }
+  
+  /* 버튼 */
+  .apply-submit-btn {
+    width: 100%;
+    padding: 12px 0;
+    background: #0f1d40;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 16px;
+  }
+  
+  .apply-submit-btn:hover {
+    background: #162955;
+  }
+  

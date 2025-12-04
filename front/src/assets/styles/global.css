@@ -1,0 +1,21 @@
+* {
+    box-sizing: border-box;
+    font-family: "Pretendard", sans-serif;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+    color: #0f1d40;
+  }
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  button {
+    font-family: inherit;
+  }
+  

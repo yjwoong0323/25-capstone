@@ -1,0 +1,68 @@
+/* ===========================
+      로그인 페이지
+=========================== */
+
+.login-container {
+    width: 100%;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+  }
+  
+  .login-logo {
+    width: 200px;
+    opacity: 0.95;
+  }
+  
+  .login-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 300px;
+  }
+  
+  .login-btn-kakao,
+  .login-btn-google {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 16px;
+    height: 50px;
+    width: 100%;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  .login-btn-kakao span,
+  .login-btn-google span {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .login-icon {
+    width: 22px;
+    height: 22px;
+  }
+  
+  /* 카카오 */
+  .login-btn-kakao {
+    background-color: #FEE500;
+    border: 1px solid #E5D500;
+  }
+  
+  /* 구글 */
+  .login-btn-google {
+    background-color: #ffffff;
+    border: 1px solid #dadce0;
+    color: #3C4043;
+  }
+  
+  

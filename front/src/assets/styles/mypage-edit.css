@@ -1,0 +1,136 @@
+/* ======================================
+   전체 레이아웃
+====================================== */
+.edit-container {
+    width: 100%;
+    max-width: 560px;
+    margin: 140px auto 120px;
+    padding: 0 20px;
+    text-align: center;
+  }
+  
+  /* ======================================
+     제목
+  ====================================== */
+  .edit-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #0f1d40;
+    margin-bottom: 36px;
+  }
+  
+  /* ======================================
+     프로필 이미지
+  ====================================== */
+  .edit-profile-img-box {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 32px;
+  }
+  
+  .edit-profile-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: #e2e4ea;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.25s ease;
+  }
+  
+  .edit-profile-img:hover {
+    background: #d6d9e0;
+  }
+  
+  .edit-profile-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .edit-placeholder {
+    color: #555;
+    font-size: 14px;
+  }
+  
+  .edit-profile-img input[type="file"] {
+    display: none;
+  }
+  
+  /* ======================================
+     입력폼
+  ====================================== */
+  .edit-form {
+    text-align: left;
+    margin-top: 10px;
+  }
+  
+  .edit-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #0f1d40;
+    margin-left: 4px;
+    margin-bottom: 6px;
+    display: block;
+  }
+  
+  .edit-input {
+    width: 100%;
+    height: 42px;
+    padding: 10px 14px;
+    border: 1px solid #c7c7c7;
+    background: #f7f7f7;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+    transition: all 0.25s ease;
+  }
+  
+  .edit-input:focus {
+    background: #ffffff;
+    border-color: #0f1d40;
+  }
+  
+  /* ======================================
+     저장 버튼
+  ====================================== */
+  .edit-save-btn {
+    width: 100%;
+    margin-top: 32px;
+    padding: 12px;
+    background: #0f1d40;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.25s ease;
+  }
+  
+  .edit-save-btn:hover {
+    background: #162955;
+  }
+.edit-input-feedback {
+    /* 기존 스타일 유지 */
+    transition: all 0.3s ease;
+}
+.edit-input-feedback:focus {
+    border-color: #1a5697; /* 브랜드 색상으로 변경 */
+    box-shadow: 0 0 0 3px rgba(30, 94, 158, 0.2); /* 부드러운 포커스 링 */
+}
+.feedback-message {
+    font-size: 0.85em;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
+    /* ⭐ 오류가 있을 때 텍스트 색상을 빨간색으로 강조 */
+    .feedback-message.error {
+        color: #e74c3c; /* 빨간색 */
+        font-weight: 500;
+    }
