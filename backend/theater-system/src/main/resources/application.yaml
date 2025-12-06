@@ -21,7 +21,7 @@ spring:
   # JPA 설정
   jpa:
     hibernate:
-      ddl-auto: validate  # SQL 파일로 스키마 관리하므로 validate 사용 (엔티티와 DB 스키마 일치 검증)
+      ddl-auto: validate  # 엔티티와 DB 스키마 일치 검증
     show-sql: true
     properties:
       hibernate:
@@ -29,17 +29,17 @@ spring:
         dialect: org.hibernate.dialect.MySQL8Dialect
     open-in-view: false
   
-  # Redis 설정
-  data:
-    redis:
-      host: localhost
-      port: 6379
-      timeout: 2000ms
-      lettuce:
-        pool:
-          max-active: 8
-          max-idle: 8
-          min-idle: 0
+  # Redis 설정 (선택사항 - Redis가 없어도 실행 가능하도록 주석 처리)
+  # data:
+  #   redis:
+  #     host: localhost
+  #     port: 6379
+  #     timeout: 2000ms
+  #     lettuce:
+  #       pool:
+  #         max-active: 8
+  #         max-idle: 8
+  #         min-idle: 0
 
 # 서버 설정
 server:
