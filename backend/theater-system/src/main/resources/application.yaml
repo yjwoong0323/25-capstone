@@ -1,3 +1,57 @@
 spring:
   application:
     name: theater-system
+  
+  # MySQL 데이터베이스 설정
+  datasource:
+    url: jdbc:mysql://localhost:3310/bu?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
+    username: root
+    password: 9874
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    
+  # SQL 초기화 설정
+  sql:
+    init:
+      mode: always  # always: 항상 실행, embedded: 내장 DB만, never: 실행 안함
+      schema-locations: classpath:sql/schema.sql  # 스키마 파일 위치
+      data-locations: classpath:sql/data.sql      # 데이터 파일 위치
+      continue-on-error: true  # 에러 발생 시에도 계속 진행 (테이블이 이미 존재할 경우)
+      separator: ;  # SQL 구분자
+  
+  # JPA 설정
+  jpa:
+    hibernate:
+      ddl-auto: validate  # SQL 파일로 스키마 관리하므로 validate 사용 (엔티티와 DB 스키마 일치 검증)
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    open-in-view: false
+  
+  # Redis 설정
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      timeout: 2000ms
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+
+# 서버 설정
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+# 로깅 설정
+logging:
+  level:
+    root: INFO
+    ac.kr.bu.theater: DEBUG
+    org.springframework.web: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
