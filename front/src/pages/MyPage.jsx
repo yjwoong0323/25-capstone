@@ -1,25 +1,22 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom"; // useNavigate 추가
+import { Link, useNavigate } from "react-router-dom";
 import "../assets/styles/mypage.css";
 import { useUser } from "../context/UserContext";
 
 export default function MyPage() {
-    // user, updateUser 외에 logout 함수도 가져옵니다.
     const { user, updateUser, logout } = useUser();
     const navigate = useNavigate();
 
-    // 로그아웃 처리 함수 (Header.tsx에서 사용된 로직과 동일)
     const handleLogout = () => {
         if (logout) {
-            logout(); // UserContext의 로그아웃 함수 호출
+            logout();
             alert("로그아웃 되었습니다.");
-            navigate('/'); // 로그아웃 후 홈 페이지로 이동
+            navigate('/');
         }
     };
 
     if (!user) return null;
 
-    // user 객체에 tickets 배열이 없거나 tickets 배열이 비어있을 경우를 대비하여 tickets 배열을 가정합니다.
     const tickets = user.tickets || [];
 
     return (
@@ -32,7 +29,7 @@ export default function MyPage() {
                 </div>
 
                 <h2 className="mypage-nickname">{user.nickname}</h2>
-                {/* ⭐ 추가된 부분: 저장된 실제 이름 표시 ⭐ */}
+
                 {user.name && <p className="mypage-realname">{user.name}</p>}
                 <p className="mypage-email">{user.email}</p>
 
@@ -48,6 +45,7 @@ export default function MyPage() {
                     <span className={`verify-dot ${user.verified ? "green" : "red"}`}></span>
                 </div>
 
+                {/* 인증된 경우 → 학번 / 전공만 출력 */}
                 {user.verified && (
                     <>
                         <p className="verify-info">학번 : {user.studentId}</p>
@@ -55,19 +53,15 @@ export default function MyPage() {
                     </>
                 )}
 
-                {!user.verified ? (
+                {/* 인증되지 않은 경우 → 인증하기 버튼만 표시 */}
+                {!user.verified && (
                     <button className="verify-btn" onClick={() => updateUser({ verified: true })}>
                         인증하기
-                    </button>
-                ) : (
-                    <button className="verify-btn verified" onClick={() => updateUser({ verified: false })}>
-                        인증 취소
                     </button>
                 )}
             </div>
 
             <hr className="mypage-divider" />
-
 
             {/* ================================ 알림 목록 ================================ */}
             {user.notifications.length > 0 && (
@@ -94,14 +88,11 @@ export default function MyPage() {
                 tickets.map((t) => (
                     <div key={t.id} className="mypage-ticket-box">
                         <div className="ticket-thumb"></div>
-
                         <div className="ticket-info">
                             <h3 className="ticket-title">{t.title}</h3>
                             <p className="ticket-place">{t.place}</p>
                             <p className="ticket-date">{t.date} {t.time}</p>
                             <p className="ticket-people">{t.people}명</p>
-
-                            {/* ticket-info가 끝나는 부분 */}
                         </div>
                     </div>
                 ))
@@ -109,21 +100,16 @@ export default function MyPage() {
 
             <hr className="mypage-divider" />
 
-
-            {/* ================================
-                ⭐ 계정 및 지원 섹션 (반복문 밖, 페이지 최하단으로 이동)
-            ================================= */}
+            {/* ================================ 계정 및 지원 ================================ */}
             <h2 className="mypage-section-title">계정 및 지원</h2>
             <div className="mypage-actions">
 
-                {/* 1. 고객센터 버튼 */}
                 <Link to="/support" className="action-link">
                     <button className="mypage-action-btn">
                         고객센터 / 문의
                     </button>
                 </Link>
 
-                {/* 2. 로그아웃 버튼 */}
                 <button
                     className="mypage-action-btn logout-btn"
                     onClick={handleLogout}
@@ -131,7 +117,6 @@ export default function MyPage() {
                     로그아웃
                 </button>
             </div>
-            {/* ================================================================== */}
 
         </div>
     );
