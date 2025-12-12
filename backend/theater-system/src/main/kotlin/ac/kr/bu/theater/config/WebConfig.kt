@@ -12,7 +12,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 class WebConfig : WebMvcConfigurer {
     
     override fun addCorsMappings(registry: CorsRegistry) {
-        registry.addMapping("/api/**")
+        // context-path가 /api이므로 실제 경로는 /**로 매핑
+        registry.addMapping("/**")
             .allowedOrigins("http://localhost:3000") // React 개발 서버
             .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
             .allowedHeaders("*")

@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+import api from "../utils/api";
 
 export interface Notification {
   id: number;
@@ -17,6 +18,7 @@ export interface Ticket {
 }
 
 export interface User {
+  id: number;
   name: string;
   email: string;
   phone: string;
@@ -30,8 +32,9 @@ export interface User {
 interface UserContextType {
   user: User | null;
 
-  login: (email: string, password: string) => boolean;
-  logout: () => void;
+  login: (email: string, password: string) => Promise<boolean>;
+  logout: () => Promise<void>;
+  loadUser: () => Promise<void>;
 
   updateUser: (data: Partial<User>) => void;
   sendNotification: (targetEmail: string, message: string) => void;
@@ -45,34 +48,81 @@ const UserContext = createContext<UserContextType | null>(null);
 export function UserProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
 
-  // ⭐ 새로고침 로그인 유지
+  // ⭐ 토큰이 있으면 사용자 정보 로드
   useEffect(() => {
-    const savedUser = localStorage.getItem("currentUser");
-    if (savedUser) setUser(JSON.parse(savedUser));
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      loadUser().catch(() => {
+        // 사용자 정보 로드 실패 시 토큰 제거
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+      });
+    }
   }, []);
 
-  useEffect(() => {
-    if (user) localStorage.setItem("currentUser", JSON.stringify(user));
-    else localStorage.removeItem("currentUser");
-  }, [user]);
-
-  // 🔥 로그인 (회원가입 유저 검증)
-  const login = (email: string, password: string) => {
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
-
-    const foundUser = users.find(
-      (u: User) => u.email === email && u.password === password
-    );
-
-    if (!foundUser) return false;
-
-    setUser(foundUser);
-    return true;
+  // 🔥 사용자 정보 로드
+  const loadUser = async (): Promise<void> => {
+    try {
+      const response = await api.get("/user/me");
+      const userData = response.data;
+      
+      // 백엔드 응답을 프론트엔드 User 인터페이스에 맞게 변환
+      const user: User = {
+        id: userData.id,
+        name: userData.name,
+        email: userData.email,
+        phone: userData.phone,
+        profileImage: null, // 백엔드에서 제공하지 않으면 null
+        verified: true,
+        notifications: [], // 알림은 별도 API로 가져올 수 있음
+        tickets: [], // 티켓은 별도 API로 가져올 수 있음
+      };
+      
+      setUser(user);
+    } catch (error) {
+      console.error("사용자 정보 로드 실패:", error);
+      throw error;
+    }
   };
 
-  // 🔥 로그아웃
-  const logout = () => {
-    setUser(null);
+  // 🔥 로그인 (백엔드 API 호출)
+  const login = async (email: string, password: string): Promise<boolean> => {
+    try {
+      const response = await api.post("/auth/login", {
+        email,
+        password,
+      });
+
+      const { accessToken, refreshToken } = response.data;
+
+      // 토큰 저장
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
+
+      // 사용자 정보 로드
+      await loadUser();
+
+      return true;
+    } catch (error: any) {
+      console.error("로그인 실패:", error);
+      return false;
+    }
+  };
+
+  // 🔥 로그아웃 (백엔드 API 호출)
+  const logout = async (): Promise<void> => {
+    try {
+      // 백엔드에 로그아웃 요청 (토큰 삭제)
+      await api.post("/auth/logout");
+    } catch (error) {
+      console.error("로그아웃 요청 실패:", error);
+      // 에러가 나도 프론트엔드에서는 로그아웃 처리
+    } finally {
+      // 로컬 스토리지 정리
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      setUser(null);
+    }
   };
 
   // 🔧 사용자 정보 업데이트
@@ -125,6 +175,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         user,
         login,
         logout,
+        loadUser,
         updateUser,
         sendNotification,
         addTicket,

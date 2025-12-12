@@ -12,16 +12,24 @@ spring:
   # SQL 초기화 설정
   sql:
     init:
-      mode: always  # always: 항상 실행, embedded: 내장 DB만, never: 실행 안함
+      mode: never  # always: 항상 실행, embedded: 내장 DB만, never: 실행 안함
       schema-locations: classpath:sql/schema.sql  # 스키마 파일 위치
       data-locations: classpath:sql/data.sql      # 데이터 파일 위치
       continue-on-error: true  # 에러 발생 시에도 계속 진행 (테이블이 이미 존재할 경우)
       separator: ;  # SQL 구분자
+
+  # Redis
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      repositories:
+        enabled: false  # Redis 리포지토리 자동 설정 비활성화 (StringRedisTemplate만 사용)
   
   # JPA 설정
   jpa:
     hibernate:
-      ddl-auto: validate  # 엔티티와 DB 스키마 일치 검증
+      ddl-auto: none  # 엔티티와 DB 스키마 일치 검증
     show-sql: true
     properties:
       hibernate:

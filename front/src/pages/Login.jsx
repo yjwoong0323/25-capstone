@@ -10,7 +10,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     if (!email || !password) {
@@ -18,17 +18,21 @@ export default function Login() {
       return;
     }
 
-    //실제 UserContext 기반 로그인
-    const success = login(email, password);
+    try {
+      // 백엔드 API를 통한 로그인
+      const success = await login(email, password);
 
-    if (!success) {
-      alert("이메일 또는 비밀번호가 틀렸습니다.");
-      return;
+      if (!success) {
+        alert("이메일 또는 비밀번호가 틀렸습니다.");
+        return;
+      }
+
+      alert("로그인 성공 🎉");
+      navigate("/mypage");
+    } catch (error) {
+      console.error("로그인 오류:", error);
+      alert("로그인 중 오류가 발생했습니다. 다시 시도해주세요.");
     }
-
-    alert("로그인 성공 🎉");
-
-    navigate("/mypage");
   };
 
   return (

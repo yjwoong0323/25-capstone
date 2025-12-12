@@ -109,7 +109,14 @@ export default function Header() {
                             </Link>
 
                             {/* ⭐ 로그아웃 버튼 */}
-                            <button className="logout-btn" onClick={logout}>
+                            <button 
+                                className="logout-btn" 
+                                onClick={async () => {
+                                    await logout();
+                                    // 로그아웃 후 홈으로 이동 (선택사항)
+                                    window.location.href = '/';
+                                }}
+                            >
                                 로그아웃
                             </button>
                         </>

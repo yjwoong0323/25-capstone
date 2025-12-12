@@ -2,7 +2,7 @@ package ac.kr.bu.theater.jwt
 
 import ac.kr.bu.theater.auth.dto.UserPrincipal
 import ac.kr.bu.theater.auth.service.RedisTokenService
-import ac.kr.bu.theater.repository.UserRepository
+import ac.kr.bu.theater.repository.user.UserRepository
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse

@@ -8,7 +8,7 @@ import ac.kr.bu.theater.dto.UserMeResponse
 import ac.kr.bu.theater.dto.UserSignupRequest
 import ac.kr.bu.theater.dto.UserSignupResponse
 import ac.kr.bu.theater.jwt.JwtTokenProvider
-import ac.kr.bu.theater.repository.UserRepository
+import ac.kr.bu.theater.repository.user.UserRepository
 import jakarta.transaction.Transactional
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service

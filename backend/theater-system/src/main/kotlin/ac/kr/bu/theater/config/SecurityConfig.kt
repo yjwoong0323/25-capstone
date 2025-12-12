@@ -3,6 +3,7 @@ package ac.kr.bu.theater.config
 import ac.kr.bu.theater.jwt.JwtAuthenticationFilter
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
@@ -23,13 +24,14 @@ class SecurityConfig(
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             }
             .authorizeHttpRequests { auth ->
-                // 공개 엔드포인트
+                // 공개 엔드포인트 (비인증 허용 경로)
+                // context-path가 /api이므로 실제 경로는 /user/signup, /auth/login 등
                 auth.requestMatchers(
+                    HttpMethod.POST,
+                    "/user/signup",
                     "/auth/login",
-                    "/auth/social",
-                    "/auth/oauth2/**",
-                    "/login/oauth2/**",
-                    "/error"
+                    "/auth/reissue",
+                    "/account"
                 ).permitAll()
                 // 나머지는 인증 필요 (추후 구현)
                 auth.anyRequest().permitAll()  // 개발용: 모든 요청 허용

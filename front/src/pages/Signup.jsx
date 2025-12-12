@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../assets/styles/login.css";
 import { useNavigate } from "react-router-dom";
+import api from "../utils/api";
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
 
     if (!name || !email || !password || !phone) {
@@ -18,32 +19,34 @@ export default function Signup() {
       return;
     }
 
-    // 기존 저장된 유저들 불러오기 (없으면 빈 배열)
-    const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
-
-    // 이메일 중복 체크
-    if (existingUsers.some((user) => user.email === email)) {
-      alert("이미 가입된 이메일입니다.");
+    // 전화번호 형식 검증 (- 없이 입력)
+    if (!/^[0-9]{10,11}$/.test(phone)) {
+      alert("전화번호는 숫자만 입력해주세요. (10~11자리)");
       return;
     }
 
-    // 새 사용자 데이터
-    const newUser = {
-      name,
-      email,
-      password,
-      phone,
-      profileImage: null,
-      verified: true,
-      notifications: [],
-    };
+    try {
+      // 백엔드 API를 통한 회원가입
+      await api.post("/user/signup", {
+        name,
+        email,
+        password,
+        phone,
+      });
 
-    // 배열에 추가하고 다시 저장
-    existingUsers.push(newUser);
-    localStorage.setItem("users", JSON.stringify(existingUsers));
-
-    alert("회원가입 완료! 로그인해주세요 😊");
-    navigate("/login");
+      alert("회원가입 완료! 로그인해주세요 😊");
+      navigate("/login");
+    } catch (error) {
+      console.error("회원가입 오류:", error);
+      
+      // 에러 메시지 처리
+      if (error?.response?.status === 400 || error?.response?.status === 409) {
+        const errorMessage = error?.response?.data?.error || error?.response?.data?.message || "이미 가입된 이메일이거나 입력 정보가 잘못되었습니다.";
+        alert(errorMessage);
+      } else {
+        alert("회원가입 중 오류가 발생했습니다. 다시 시도해주세요.");
+      }
+    }
   };
 
   return (
