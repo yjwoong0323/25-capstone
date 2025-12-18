@@ -1,0 +1,198 @@
+/* ===========================
+   레이아웃
+=========================== */
+
+.board-container {
+  width: 100%;
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 20px 16px;
+}
+
+/* 페이지 제목 (자유게시판 스타일 통일) */
+.board-title {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  color: #0f1d40;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* 페이지 설명문 (중앙 정렬) */
+.board-sub {
+  text-align: center;
+  font-size: 15px;
+  color: #6e6e6e;
+  margin-bottom: 24px;
+}
+
+/* 작성 버튼 (왼쪽 정렬) */
+.board-top {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 24px;
+}
+
+/* ===========================
+   팟 카드 리스트
+=========================== */
+
+.party-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.party-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #eef2f9;
+  border-radius: 20px;
+  padding: 20px 30px;
+  transition: all 0.2s ease;
+}
+
+.party-item:hover {
+  background: #e4e9f5;
+  transform: translateY(-2px);
+}
+
+.party-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.party-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: #0f1d40;
+}
+
+.party-content {
+  font-size: 15px;
+  color: #333;
+}
+
+.party-tags {
+  font-size: 14px;
+  color: #666;
+}
+
+/* 참여 / 로그인 버튼 */
+.join-btn {
+  padding: 8px 16px;
+  background: #0f1d40;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.25s;
+}
+
+.join-btn:hover {
+  background: #162955;
+}
+
+.join-btn.disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* ===========================
+   작성 페이지 (Write)
+=========================== */
+
+.party-write-box {
+  background: #f3f4f6;
+  border-radius: 20px;
+  padding: 40px 60px;
+  width: 100%;
+  max-width: 700px;
+  margin: 40px auto 20px;
+}
+
+.party-write-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 22px;
+}
+
+.party-label {
+  font-weight: 600;
+  font-size: 15px;
+  color: #0f1d40;
+  margin-bottom: 8px;
+}
+
+/* 입력 필드 */
+.party-input,
+.party-textarea {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 14px;
+  outline: none;
+}
+
+.party-input:focus,
+.party-textarea:focus {
+  border-color: #0f1d40;
+}
+
+.party-textarea {
+  min-height: 100px;
+  resize: none;
+}
+
+/* 인원 수 입력 */
+.party-count-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.count-btn {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.count-btn:hover {
+  background: #e6e9f3;
+}
+
+.count-display {
+  width: 50px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fff;
+  height: 32px;
+}
+
+/* 제출 버튼 */
+.submit-btn {
+  display: block;
+  margin: 10px auto 100px;
+  padding: 10px 28px;
+  background-color: #0f1d40;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.submit-btn:hover {
+  background-color: #162955;
+}

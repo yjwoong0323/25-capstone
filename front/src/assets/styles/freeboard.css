@@ -1,0 +1,164 @@
+﻿/* src/assets/styles/free_board.css */
+
+.board-page-container {
+    padding-top: 120px;
+    padding-bottom: 80px;
+    background-color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.board-content-wrapper {
+    max-width: 1200px; /* ⭐ 컨테이너 너비를 넓게 설정 */
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+/* --- 제목 및 설명 --- */
+.board-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-top: 20px;
+}
+
+.board-title {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: #0f1d40;
+    margin-bottom: 5px;
+}
+
+.board-description {
+    font-size: 1.1em;
+    color: #666;
+}
+
+/* --- 작성하기 버튼 --- */
+.board-actions {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
+.write-btn {
+    padding: 10px 20px;
+    background-color: #0f1d40;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+    .write-btn:hover {
+        background-color: #152859;
+    }
+
+/* --- 게시물 목록 (Figma Rectangle 14 스타일 적용) --- */
+.post-list-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* ⭐ 카드 사이 간격 추가 */
+    border: none;
+    overflow: visible;
+}
+
+.post-card-link {
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+}
+
+.post-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* 텍스트와 썸네일을 수직 중앙 정렬 */
+    /* ⭐ Rectangle 14 속성 적용 */
+    background-color: #EEEEEE; /* 배경색 */
+    border-radius: 25px; /* 반경 */
+
+    width: 100%;
+    height: 160px; /* ⭐ 높이 160px 적용 */
+    padding: 30px 40px; /* 내부 패딩 */
+
+    box-sizing: border-box;
+    transition: background-color 0.2s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* 카드 분리 강조를 위한 그림자 */
+}
+
+    .post-card:hover {
+        background-color: #e0e0e0;
+    }
+
+.post-text-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* 텍스트를 중앙 정렬 */
+    height: 100%;
+    flex-grow: 1;
+    padding-right: 40px;
+}
+
+.post-card-title {
+    font-size: 1.5em; /* 제목 크기 키움 */
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 5px;
+}
+.post-card-content {
+    font-size: 1em; /* 크기 복원 */
+    color: #666;
+    overflow: hidden;
+    /* ⭐ 본문 내용을 두 줄까지 표시하도록 수정 */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* 두 줄 제한 */
+    -webkit-box-orient: vertical;
+    margin-top: 5px; /* 제목과의 간격 */
+    margin-bottom: 5px; /* 날짜와의 간격 */
+}
+
+/* --- post-meta (날짜 영역) 스타일 조정 --- */
+.post-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* 날짜와 화살표 분리 */
+    width: 100%;
+    color: #999;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+.arrow-icon {
+    color: #999;
+    margin-left: auto;
+}
+
+/* --- 이미지 썸네일 영역 (Rectangle 18 스타일 적용) --- */
+.post-thumbnail {
+    /* ⭐ Rectangle 18 속성 적용 */
+    width: 100px;
+    height: 100px;
+    border-radius: 12px;
+    background-color: #D9D9D9; /* 배경색 */
+
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .post-thumbnail img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+.image-placeholder {
+    color: #666;
+    font-size: 0.9em;
+}

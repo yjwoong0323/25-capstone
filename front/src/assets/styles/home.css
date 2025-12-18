@@ -1,0 +1,92 @@
+/* ==========================
+        HOME PAGE
+========================== */
+
+.home-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  
+  .poster-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-top: 60px;
+  }
+  
+  .poster-image {
+    width: 1096px;
+    height: 450px;
+    border-radius: 8px;
+    object-fit: cover;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .poster-image:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .content-section {
+    width: 100%;
+    max-width: 1200px;
+    padding: 60px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .section-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 60px;
+    color: #0f1d40;
+  }
+  
+  .department {
+    width: 100%;
+    margin-bottom: 80px;
+  }
+  
+  .dept-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    color: #0f1d40;
+  }
+  
+  .poster-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    justify-items: center;
+  }
+  
+  .dept-poster {
+    width: 260px;
+    height: 360px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .dept-poster:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+  }
+  
+  .poster-placeholder {
+    width: 260px;
+    height: 360px;
+    border-radius: 8px;
+    background: #ddd;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  

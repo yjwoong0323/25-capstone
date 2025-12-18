@@ -1,0 +1,98 @@
+/* ==========================
+        TICKET PAGE
+========================== */
+
+.ticket-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 160px;
+    padding-bottom: 100px;
+  }
+  
+  .ticket-card {
+    width: 420px;
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  }
+  
+  .ticket-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #0f1d40;
+    margin-bottom: 24px;
+  }
+  
+  .ticket-section {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  
+  .ticket-label {
+    font-size: 14px;
+    color: #666;
+    margin-top: 4px;
+  }
+  
+  .ticket-value {
+    font-size: 17px;
+    font-weight: 600;
+  }
+  
+  .ticket-divider {
+    position: relative;
+    width: 100%;
+    margin: 18px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .ticket-dashed {
+    border: none;
+    border-top: 2px dashed #ccc;
+    width: 100%;
+  }
+  
+  .ticket-hole {
+    width: 22px;
+    height: 22px;
+    background: white;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    position: absolute;
+  }
+  
+  .left-hole {
+    left: -12px;
+  }
+  
+  .right-hole {
+    right: -12px;
+  }
+  
+  .ticket-id {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 16px;
+  }
+  
+  .ticket-btn {
+    width: 100%;
+    padding: 12px;
+    background: #0f1d40;
+    color: white;
+    border: none;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+  .ticket-btn:hover {
+    background: #14244f;
+  }
+  

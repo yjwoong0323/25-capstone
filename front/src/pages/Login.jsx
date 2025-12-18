@@ -1,0 +1,70 @@
+import React, { useState } from "react";
+import "../assets/styles/login.css";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../context/UserContext";   
+
+export default function Login() {
+  const navigate = useNavigate();
+  const { login } = useUser();                     
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    if (!email || !password) {
+      alert("이메일과 비밀번호를 입력해주세요.");
+      return;
+    }
+
+    //실제 UserContext 기반 로그인
+    const success = login(email, password);
+
+    if (!success) {
+      alert("이메일 또는 비밀번호가 틀렸습니다.");
+      return;
+    }
+
+    alert("로그인 성공 🎉");
+
+    navigate("/mypage");
+  };
+
+  return (
+    <div className="login-container">
+      <img src="/logo.png" alt="logo" className="login-logo" />
+
+      <h2 className="login-title">로그인</h2>
+
+      <form className="login-form" onSubmit={handleLogin}>
+        <input
+          type="email"
+          placeholder="이메일"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="input"
+        />
+
+        <input
+          type="password"
+          placeholder="비밀번호"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="input"
+        />
+
+        <button className="login-btn" type="submit">
+          로그인
+        </button>
+      </form>
+
+      <button 
+        className="signup-btn"
+        onClick={() => navigate("/signup")}
+      >
+        회원가입
+      </button>
+    </div>
+  );
+}

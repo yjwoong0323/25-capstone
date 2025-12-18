@@ -1,0 +1,112 @@
+/* ================================
+   대관 페이지 전체 레이아웃
+================================ */
+.rental-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 140px auto 60px;
+    padding: 0 20px;
+  }
+  
+  /* 제목 */
+  .rental-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #0f1d40;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  /* 공연장 카드 목록 */
+  .rental-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
+  }
+  
+  /* 카드 */
+  .rental-card {
+    background: #ffffff;
+    border-radius: 14px;
+    border: 1px solid #e3e3e3;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: 0.2s ease;
+    cursor: pointer;
+  }
+  
+  .rental-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+  }
+  
+  /* 카드 이미지 영역 */
+  .rental-img-box {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+  }
+  
+  .rental-img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* 카드 내용 */
+  .rental-info {
+    padding: 18px 20px;
+  }
+  
+  .rental-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0f1d40;
+    margin-bottom: 8px;
+  }
+  
+  .rental-detail {
+    font-size: 14px;
+    color: #444;
+    margin-bottom: 4px;
+  }
+  
+  .rental-contact {
+    margin-top: 12px;
+    font-weight: 600;
+    color: #0f1d40;
+  }
+  
+  /* 모바일 대응 */
+  @media (max-width: 480px) {
+    .rental-img-box {
+      height: 160px;
+    }
+    .rental-name {
+      font-size: 18px;
+    }
+  }
+
+  .rental-card {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .rental-btn {
+  align-self: flex-end;        /* 내부 우측 정렬 */
+  margin-top: 20px;
+  padding: 8px 16px;
+  background: #0f1d40;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: 0.2s;
+  }
+
+  
+  .rental-btn:hover {
+    background: #162955;
+  }
+  
+  
