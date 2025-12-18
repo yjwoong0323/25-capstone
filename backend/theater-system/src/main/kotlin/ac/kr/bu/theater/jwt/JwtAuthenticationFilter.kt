@@ -3,6 +3,7 @@ package ac.kr.bu.theater.jwt
 import ac.kr.bu.theater.auth.dto.UserPrincipal
 import ac.kr.bu.theater.auth.service.RedisTokenService
 import ac.kr.bu.theater.repository.user.UserRepository
+import ac.kr.bu.theater.repository.user.UserRoleRepository
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
@@ -14,58 +15,67 @@ import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 
 @Component
-class JwtAuthenticationFilter (
+class JwtAuthenticationFilter(
     private val jwtTokenProvider: JwtTokenProvider,
     private val redisTokenService: RedisTokenService,
+
+    // ✅ 반드시 UserRepository
     private val userRepository: UserRepository,
-    tokenService: RedisTokenService
-) : OncePerRequestFilter() { // 요청 당 한번만 실행되는 필터
+
+    // ✅ 권한 조회 전용
+    private val userRoleRepository: UserRoleRepository
+) : OncePerRequestFilter() {
+
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        // 1. 요청 헤더에서 Authorization 헤더 추출
         val authHeader = request.getHeader("Authorization")
         val token = JwtHeaderUtil.extractBearerToken(authHeader)
 
-        // 2. 헤더가 없거나 'Bearer'로 시작하지 않으면 다음 필터로 넘김
+        // 1) 토큰 없거나 검증 실패 → 인증 없이 통과
         if (token.isNullOrBlank() || !jwtTokenProvider.validateToken(token)) {
             filterChain.doFilter(request, response)
             return
         }
 
-        // 3. JWT에서 userId 추출
+        // 2) 토큰에서 userId 추출
         val userId = jwtTokenProvider.getUserId(token)
 
-        // 4. Redis에 저장된 토큰과 비교
+        // 3) Redis 토큰 검증
         val storedToken = redisTokenService.getAccessToken(userId)
         if (!redisTokenService.isSameToken(token, storedToken)) {
             filterChain.doFilter(request, response)
             return
         }
 
-        // 5. DB에서 user 정보 조회
-        val user = userRepository.findById(userId)
-            .orElse(null) ?: run {
-                filterChain.doFilter(request, response)
+        // 4) 사용자 조회 (User 엔티티)
+        val user = userRepository.findById(userId).orElse(null)
+        if (user == null) {
+            filterChain.doFilter(request, response)
             return
         }
 
-        // 6. UserPrincipal 생성
-        val userPrincipal = UserPrincipal(user.id!!, user.name)
+        val userPrincipal = UserPrincipal(
+            user.id!!,
+            user.name
+        )
 
-        // 7. 인증 객체 생성 (without UserDetails)
-        val authorities = listOf(SimpleGrantedAuthority("인증 객체"))
-        val authToken = UsernamePasswordAuthenticationToken(userPrincipal, null, authorities)
-            .apply { details = WebAuthenticationDetailsSource().buildDetails(request) }
+        // 5) 권한 조회 (문자열 기반, Lazy 문제 없음)
+        val authorities = userRoleRepository.findRoleNamesByUserId(userId)
+            .distinct()
+            .map { SimpleGrantedAuthority("ROLE_$it") }
 
-        // 8. 인증 객체를 SecurityContextHolder에 등록
+        val authToken = UsernamePasswordAuthenticationToken(
+            userPrincipal,
+            null,
+            authorities
+        ).apply {
+            details = WebAuthenticationDetailsSource().buildDetails(request)
+        }
+
         SecurityContextHolder.getContext().authentication = authToken
-
-        // 9. 다음 필터로 넘기기
         filterChain.doFilter(request, response)
-
     }
-
 }

@@ -23,7 +23,7 @@ class EventSchedule(
     var endsAt: LocalDateTime,
     
     @Column
-    var capacity: Int? = null,
+    var capacity: Int,
     
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

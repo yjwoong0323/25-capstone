@@ -14,12 +14,13 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
-class UserServiceImpl (
+class UserServiceImpl(
     private val userRepository: UserRepository,
     private val passwordEncoder: PasswordEncoder,
     private val jwtTokenProvider: JwtTokenProvider,
     private val redisTokenService: RedisTokenService
-) : UserService{
+) : UserService {
+
     @Transactional
     override fun createUser(request: UserSignupRequest): UserSignupResponse {
         val user = User(
@@ -50,11 +51,9 @@ class UserServiceImpl (
             throw Exception("INCORRECT_PASSWORD")
         }
 
-        // Token 생성
         val accessToken = jwtTokenProvider.createAccessToken(user.id!!)
         val refreshToken = jwtTokenProvider.createRefreshToken(user.id!!)
 
-        // Redis 저장
         redisTokenService.saveAccessToken(user.id!!, accessToken, jwtTokenProvider.getAccessExpiration())
         redisTokenService.saveRefreshToken(user.id!!, refreshToken, jwtTokenProvider.getRefreshExpiration())
 
@@ -63,9 +62,15 @@ class UserServiceImpl (
 
     override fun getMyInfo(userId: Long): UserMeResponse {
         val user = userRepository.findById(userId)
-            .orElseThrow{ Exception("USER_NOT_FOUND") }
+            .orElseThrow { Exception("USER_NOT_FOUND") }
 
-        return UserMeResponse(userId, user.email, user.name,
-            user.phone, user.status, user.createdAt)
+        return UserMeResponse(
+            userId,
+            user.email,
+            user.name,
+            user.phone,
+            user.status,
+            user.createdAt
+        )
     }
 }

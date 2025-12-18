@@ -17,4 +17,6 @@ interface TicketRepository : JpaRepository<Ticket, Long> {
     fun existsBySchedule_IdAndSeat_Id(scheduleId: Long, seatId: Long): Boolean
     fun findByExpiredAtBefore(now: LocalDateTime): List<Ticket>
     fun countBySchedule_IdAndStatus(scheduleId: Long, status: TicketStatus): Long
+
+    
 }
